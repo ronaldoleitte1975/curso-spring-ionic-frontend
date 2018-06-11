@@ -9,7 +9,7 @@ import { JwtHelper } from "angular2-jwt";
 @Injectable()
 export class AuthService {
 
-    jwtHelper : JwtHelper = new JwtHelper();
+    jwtHelper: JwtHelper = new JwtHelper();
 
     constructor(public http: HttpClient, public storage: StorageService) {
 
@@ -20,6 +20,15 @@ export class AuthService {
             observe: 'response',
             responseType: 'text'
         })
+    }
+
+    refreshToken() {
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`,
+            {}, 
+            {
+                observe: 'response',
+                responseType: 'text'
+            })
     }
 
     successfulLogin(authorizationValue: string) {
